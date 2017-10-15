@@ -1,6 +1,6 @@
 FROM golang:1.8.3
 
-WORKDIR /go/src/github.com/denkhaus/microservice/greeter
+WORKDIR /go/src/github.com/denkhaus/microservices/greeter
 COPY . .
 
 # Run a gofmt and exclude all vendored code.
@@ -8,7 +8,8 @@ RUN test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*"))"
 
 RUN VERSION=$(git describe --all --exact-match `git rev-parse HEAD` | grep tags | sed 's/tags\///') \
  && GIT_COMMIT=$(git rev-list -1 HEAD) \
- && CGO_ENABLED=0 GOOS=linux go build --ldflags "-s -w -X github.com/denkhaus/microservice/greeter/main.GitCommit=${GIT_COMMIT} -X github.com/denkhaus/microservice/greeter/main.Version=${VERSION}" -a -installsuffix cgo -o service . \
+ && go get -u -v . \
+ && CGO_ENABLED=0 GOOS=linux go build --ldflags "-s -w -X github.com/denkhaus/microservices/greeter/main.GitCommit=${GIT_COMMIT} -X github.com/denkhaus/microservices/greeter/main.Version=${VERSION}" -a -installsuffix cgo -o service . \
  && go test $(go list ./... | grep -v /vendor/ | grep -v /template/) -cover
 
 
@@ -17,7 +18,7 @@ RUN apk --no-cache add ca-certificates
 
 WORKDIR /root/
 
-COPY --from=0 /go/src/github.com/denkhaus/microservice/greeter/service .
+COPY --from=0 /go/src/github.com/denkhaus/microservices/greeter/service .
 
 CMD ["./service --registry mdns"]
 
