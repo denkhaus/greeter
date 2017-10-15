@@ -1,0 +1,13 @@
+################################################################################
+greeter:
+  restart: always
+  image: denkhaus/greeter:latest
+  environment:
+    MICRO_REGISTRY: mdns
+    MICRO_SERVER_NAME: denkhaus.micro.greeter
+  labels:
+    io.rancher.container.pull_image: always
+    # io.rancher.scheduler.affinity:host_label: name=metis
+    #io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.hostname_override: container_name
+  
