@@ -3,7 +3,7 @@
 all: deploy
 
 proto:
-	for d in proto; do \
+	for d in proto/hello; do \
 		for f in $$d/**/proto/*.proto; do \
 			protoc --go_out=plugins=micro:. $$f; \
 			echo compiled: $$f; \
