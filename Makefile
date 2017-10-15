@@ -3,12 +3,7 @@
 all: deploy
 
 proto:
-	for d in proto/hello; do \
-		for f in $$d/**/proto/*.proto; do \
-			protoc --go_out=plugins=micro:. $$f; \
-			echo compiled: $$f; \
-		done \
-	done
+	cd proto/hello && protoc --go_out=plugins=micro:. hello.proto
 
 deploy: push
 	@rancher-compose -p services up -d --force-upgrade
