@@ -3,6 +3,10 @@ FROM denkhaus/micro-base:latest
 ARG VERSION
 ARG GIT_COMMIT
 
+
+RUN echo ${VERSION}
+RUN echo §{GIT_COMMIT}
+
 WORKDIR /go/src/github.com/denkhaus/microservices/greeter
 COPY . .
 
