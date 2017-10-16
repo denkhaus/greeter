@@ -1,4 +1,4 @@
-FROM golang:1.8.3
+FROM denkhaus/micro-base:latest
 
 WORKDIR /go/src/github.com/denkhaus/microservices/greeter
 COPY . .
