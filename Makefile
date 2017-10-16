@@ -9,7 +9,7 @@ proto:
 
 deploy: push
 	@IMAGE_NAME=$(IMAGE_NAME) \
-	@rancher-compose -p services up -d --force-upgrade
+	rancher-compose -p services up -d --force-upgrade
 
 push: build
 	docker push $(IMAGE_NAME):latest
@@ -18,6 +18,6 @@ build: proto commit
 	docker build  -t $(IMAGE_NAME)  .
 
 commit:
-	git add -A && git commit -a -m "proceed"
+	git add -A && git commit -a -m "autocommit"
 	git push origin master
 
