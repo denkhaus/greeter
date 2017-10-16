@@ -1,7 +1,7 @@
 .PHONY: proto build
 
-VERSION=$(shell git rev-list --count master)
-IMAGE_NAME=denkhaus/greeter-micro-svc
+VERSION=$(shell git describe --all --exact-match `git rev-parse HEAD` | grep tags | sed 's/tags\///')
+IMAGE_NAME=denkhaus/greeter-micro-srv:$(VERSION)
 
 all: deploy
 
@@ -13,7 +13,7 @@ deploy: push
 	rancher-compose -p services up -d --force-upgrade
 
 push: build
-	docker push $(IMAGE_NAME):latest
+	docker push $(IMAGE_NAME)
 
 build: proto commit
 	docker build  -t $(IMAGE_NAME)  .
