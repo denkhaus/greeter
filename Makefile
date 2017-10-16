@@ -20,6 +20,6 @@ build: proto commit
 
 commit:		
 	git add -A && git commit -a -m "autocommit"
-	git tag $(VERSION)
+	git tag "0.0.$(VERSION)"
 	git push origin master
 
