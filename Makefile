@@ -1,6 +1,6 @@
 .PHONY: proto build
 
-VERSION=0.0.2
+VERSION=0.0.3
 IMAGE_NAME=denkhaus/greeter-micro-svc
 
 all: deploy
