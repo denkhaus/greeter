@@ -18,10 +18,8 @@ push: build
 build: proto commit
 	docker build  -t $(IMAGE_NAME)  .
 
-commit:
-	if [ $(shell git describe --all --exact-match `git rev-parse HEAD` | grep tags | sed 's/tags\///') != $(VERSION) ]; \
-		then git tag $(VERSION); \
-	fi
+commit:		
 	git add -A && git commit -a -m "autocommit"
+	git tag $(VERSION)
 	git push origin master
 
