@@ -1,6 +1,6 @@
 .PHONY: proto build
 
-VERSION=$(shell git describe --all --exact-match `git rev-parse HEAD` | grep tags | sed 's/tags\///')
+VERSION=0.0.13
 IMAGE_NAME=denkhaus/greeter-micro-srv:$(VERSION)
 
 all: deploy
@@ -16,11 +16,10 @@ push: build
 	docker push $(IMAGE_NAME)
 
 build: proto commit
-	docker build  -t $(IMAGE_NAME)  .
+	docker build --build-arg VERSION=$(VERSION) --build-arg GIT_COMMIT=$(shell git rev-list -1 HEAD) -t $(IMAGE_NAME)  .
 
 commit:		
-	git add -A && git commit -a -m "autocommit"
-	git tag "0.0.$(VERSION)"
+	git add -A && git commit -a -m "autocommit"	
 	git push origin master
 
  
