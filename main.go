@@ -25,6 +25,7 @@ func (s *Say) Hello(ctx context.Context, req *hello.Request, rsp *hello.Response
 
 func main() {
 	service := micro.NewService(
+		micro.Version(Version),
 		micro.RegisterTTL(time.Second*30),
 		micro.RegisterInterval(time.Second*10),
 	)
