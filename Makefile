@@ -1,5 +1,6 @@
 .PHONY: proto build
 
+VERSION=0.0.2
 IMAGE_NAME=denkhaus/greeter-micro-svc
 
 all: deploy
@@ -18,6 +19,9 @@ build: proto commit
 	docker build  -t $(IMAGE_NAME)  .
 
 commit:
+	if [ $(shell git describe --all --exact-match `git rev-parse HEAD` | grep tags | sed 's/tags\///') != $(VERSION) ]; \
+		then git tag $(VERSION); \
+	fi
 	git add -A && git commit -a -m "autocommit"
 	git push origin master
 
