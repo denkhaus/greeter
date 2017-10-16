@@ -16,4 +16,5 @@ build: proto commit
 
 commit:
 	git add -A && git commit -a -m "proceed"
+	git push origin master
 
